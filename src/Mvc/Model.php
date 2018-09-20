@@ -22,13 +22,10 @@
 
 namespace Galactium\Space\Mvc;
 
-use Phalcon\Mvc\Model\ResultsetInterface;
-use Phalcon\Mvc\ModelInterface;
 use function Galactium\Space\Helpers\camelize;
 
 abstract class Model extends \Phalcon\Mvc\Model
 {
-
     const DELETED = 1;
 
     const NOT_DELETED = 0;
@@ -40,41 +37,14 @@ abstract class Model extends \Phalcon\Mvc\Model
     /**
      * @var array
      */
-    protected $exclude = [];
-
-    /**
-     * @var array
-     */
     protected $append = [];
 
     /**
-     * @param null $parameters
-     * @return $this|ModelInterface
-     */
-    public static function findFirst($parameters = null)
-    {
-        return parent::findFirst($parameters);
-    }
-
-    /**
-     * @param null $parameters
-     * @return $this[]|ResultsetInterface
-     */
-    public static function find($parameters = null)
-    {
-        return parent::find($parameters);
-    }
-
-    /**
-     * @param null $columns
+     * @param array|null $columns
      * @return array
      */
     public function toArray($columns = null)
     {
-        if (!empty($this->excludable)) {
-            $columns = array_merge(array_diff($this->getModelsMetaData()->getAttributes($this), $this->exclude), $columns ?? []);
-        }
-
         $data = array_merge(parent::toArray($columns), $this->getAppends());
 
         return $data;
@@ -86,10 +56,29 @@ abstract class Model extends \Phalcon\Mvc\Model
     protected function getAppends(): array
     {
         $appends = [];
+
         foreach ($this->append as $append) {
             $appends[$append] = $this->{'get' . camelize($append)}();
         }
         return $appends;
+    }
+
+    /**
+     * @param null $parameters
+     * @return \Phalcon\Mvc\Model\ResultsetInterface|$this[]|void
+     */
+    public static function find($parameters = null)
+    {
+        return parent::find($parameters);
+    }
+
+    /**
+     * @param null $parameters
+     * @return \Phalcon\Mvc\Model|$this|void
+     */
+    public static function findFirst($parameters = null)
+    {
+        return parent::findFirst($parameters);
     }
 
 }

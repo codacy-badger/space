@@ -34,9 +34,8 @@ use Phalcon\Mvc\Model\ValidationFailed;
 
 class Manager extends Injectable
 {
-
     /**
-     * @param \Throwable|HttpExceptionInterface $e
+     * @param \Throwable $e
      * @return Response
      * @throws \Throwable
      */
@@ -139,7 +138,7 @@ class Manager extends Injectable
     }
 
     /**
-     * @param \Throwable|HttpExceptionInterface $e
+     * @param \Throwable $e
      * @return string
      */
     protected function prepareHtmlResponse(\Throwable $e): string

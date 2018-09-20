@@ -26,7 +26,7 @@ namespace Galactium\Space\Identifier;
 interface IdentifiableInterface
 {
     /**
-     * @return IdentifierInterface
+     * @return \Galactium\Space\Identifier\IdentifierInterface
      */
     public function identify(): IdentifierInterface;
 }

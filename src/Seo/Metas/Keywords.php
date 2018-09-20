@@ -20,37 +20,22 @@
  * @author Grigoriy Ivanov
  */
 
-namespace Galactium\Space\Identifier;
 
-interface IdentifierInterface
+namespace Galactium\Space\Seo\Metas;
+
+
+class Keywords extends Meta
 {
-    /**
-     * @return string
-     */
-    public function getIdentifiable(): string;
+    protected $name = 'keywords';
 
     /**
-     * @return string
+     * Description constructor.
+     * @param string $content
      */
-    public function getModule(): string;
+    public function __construct(?string $content)
+    {
+        parent::__construct($content, $this->name);
+    }
 
-    /**
-     * @return string
-     */
-    public function getNamespace(): string;
 
-    /**
-     * @return string
-     */
-    public function getClass(): string;
-
-    /**
-     * @return string
-     */
-    public function key(): string;
-
-    /**
-     * @return array
-     */
-    public function getParams(): array;
 }

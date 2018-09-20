@@ -23,20 +23,27 @@
 namespace Galactium\Space\Modules;
 
 
+use Phalcon\Di\ServiceProviderInterface;
 use Phalcon\Mvc\ModuleDefinitionInterface;
 
 abstract class Module implements ModuleDefinitionInterface
 {
-    protected $services = [];
-
+    /**
+     * @var ServiceProviderInterface[]
+     */
     protected $providers = [];
 
+    /**
+     * @param \Phalcon\DiInterface|null $dependencyInjector
+     */
     public function registerAutoloaders(\Phalcon\DiInterface $dependencyInjector = null)
     {
-
     }
 
-
+    /**
+     * @param \Phalcon\DiInterface $dependencyInjector
+     * @return mixed
+     */
     abstract public function registerServices(\Phalcon\DiInterface $dependencyInjector);
 
 }

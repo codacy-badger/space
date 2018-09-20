@@ -22,35 +22,18 @@
 
 namespace Galactium\Space\Identifier;
 
-interface IdentifierInterface
+
+use Phalcon\Mvc\ModelInterface;
+
+interface InteractorInterface
 {
     /**
      * @return string
      */
-    public function getIdentifiable(): string;
+    public function getGuid(): string;
 
     /**
-     * @return string
+     * @return null|\Phalcon\Mvc\ModelInterface
      */
-    public function getModule(): string;
-
-    /**
-     * @return string
-     */
-    public function getNamespace(): string;
-
-    /**
-     * @return string
-     */
-    public function getClass(): string;
-
-    /**
-     * @return string
-     */
-    public function key(): string;
-
-    /**
-     * @return array
-     */
-    public function getParams(): array;
+    public function interacte(): ?ModelInterface;
 }

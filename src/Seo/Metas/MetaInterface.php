@@ -20,37 +20,19 @@
  * @author Grigoriy Ivanov
  */
 
-namespace Galactium\Space\Identifier;
 
-interface IdentifierInterface
+namespace Galactium\Space\Seo\Metas;
+
+
+interface MetaInterface
 {
-    /**
-     * @return string
-     */
-    public function getIdentifiable(): string;
-
-    /**
-     * @return string
-     */
-    public function getModule(): string;
-
-    /**
-     * @return string
-     */
-    public function getNamespace(): string;
-
-    /**
-     * @return string
-     */
-    public function getClass(): string;
-
     /**
      * @return string
      */
     public function key(): string;
 
     /**
-     * @return array
+     * @return string
      */
-    public function getParams(): array;
+    public function render(): string;
 }

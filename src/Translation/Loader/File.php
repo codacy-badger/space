@@ -20,46 +20,43 @@
  * @author Grigoriy Ivanov
  */
 
-namespace Galactium\Space\Identifier;
+namespace Galactium\Space\Translation\Loader;
 
 
-class Parser
+class File implements LoaderInterface
 {
     /**
-     * @var array
+     * @var string
      */
-    protected $parsed = [];
+    protected $localePath;
 
     /**
-     * @param  string $key
-     * @return array
+     * File constructor.
+     * @param string $localePath
      */
-    public function parse(string $key)
+    public function __construct(string $localePath)
     {
-        if (isset($this->parsed[$key])) {
-            return $this->parsed[$key];
-        }
-
-        $parsed = $this->parseSegments($key);
-
-        return $this->parsed[$key] = $parsed;
+        $this->localePath = $localePath;
     }
 
     /**
-     * @param $key
+     * @param $module
+     * @param $group
      * @return array
      */
-    protected function parseSegments($key)
+    public function load($locale, $module, $group = null): array
     {
-        [$module, $segments] = explode('::', $key);
-
-        $items = explode('.', $segments, 3);
-        $params = [];
-        if (count($items) > 2) {
-            $params = explode('.', array_splice($items, -1)[0]);
+        if ($group) {
+            $resource = "{$this->localePath}/{$locale}/{$module}/{$group}.php";
+        } else {
+            $resource = "{$this->localePath}/{$locale}/{$module}/{$module}.php";
         }
-        return array_merge([$module], $items, [$params]);
-    }
 
+        if (file_exists($resource)) {
+            return require $resource;
+        }
+
+        return [];
+    }
 
 }

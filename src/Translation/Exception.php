@@ -20,37 +20,10 @@
  * @author Grigoriy Ivanov
  */
 
-namespace Galactium\Space\Identifier;
+namespace Galactium\Space\Translation;
 
-interface IdentifierInterface
+
+class Exception extends \Galactium\Space\Exception
 {
-    /**
-     * @return string
-     */
-    public function getIdentifiable(): string;
 
-    /**
-     * @return string
-     */
-    public function getModule(): string;
-
-    /**
-     * @return string
-     */
-    public function getNamespace(): string;
-
-    /**
-     * @return string
-     */
-    public function getClass(): string;
-
-    /**
-     * @return string
-     */
-    public function key(): string;
-
-    /**
-     * @return array
-     */
-    public function getParams(): array;
 }

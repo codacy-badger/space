@@ -20,37 +20,42 @@
  * @author Grigoriy Ivanov
  */
 
-namespace Galactium\Space\Identifier;
 
-interface IdentifierInterface
+namespace Galactium\Space\Seo\Metas;
+
+
+use Galactium\Space\Support\BaseCollection;
+
+class Collection extends BaseCollection
 {
     /**
-     * @return string
+     * @param MetaInterface $meta
+     * @return Collection
      */
-    public function getIdentifiable(): string;
+    public function add(MetaInterface $meta): Collection
+    {
+        $this->offsetSet($meta->key(), $meta);
+        return $this;
+    }
 
     /**
-     * @return string
+     * @param string $key
+     * @return Collection
      */
-    public function getModule(): string;
+    public function delete(string $key): Collection
+    {
+        $this->offsetUnset($key);
+        return $this;
+    }
 
     /**
-     * @return string
+     * @return $this
      */
-    public function getNamespace(): string;
+    public function reset()
+    {
+        $this->setData([]);
+        $this->rewind();
 
-    /**
-     * @return string
-     */
-    public function getClass(): string;
-
-    /**
-     * @return string
-     */
-    public function key(): string;
-
-    /**
-     * @return array
-     */
-    public function getParams(): array;
+        return $this;
+    }
 }

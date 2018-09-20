@@ -20,37 +20,55 @@
  * @author Grigoriy Ivanov
  */
 
-namespace Galactium\Space\Identifier;
 
-interface IdentifierInterface
+namespace Galactium\Space\Seo\Metas;
+
+
+use Phalcon\Tag;
+
+class Title implements MetaInterface
 {
     /**
-     * @return string
+     * @var string
      */
-    public function getIdentifiable(): string;
+    protected $title = '';
+
+    /**
+     * Titile constructor.
+     * @param string $title
+     */
+    public function __construct(string $title)
+    {
+        $this->title = $title;
+    }
 
     /**
      * @return string
      */
-    public function getModule(): string;
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
 
     /**
-     * @return string
+     * @param string $title
+     * @return Title
      */
-    public function getNamespace(): string;
+    public function setTitle(string $title): Title
+    {
+        $this->title = strip_tags($title);
+        return $this;
+    }
 
-    /**
-     * @return string
-     */
-    public function getClass(): string;
+    public function key(): string
+    {
+        return 'title';
+    }
 
-    /**
-     * @return string
-     */
-    public function key(): string;
+    public function render(): string
+    {
+        return Tag::tagHtml('title') . $this->title . Tag::tagHtmlClose('title');
+    }
 
-    /**
-     * @return array
-     */
-    public function getParams(): array;
+
 }

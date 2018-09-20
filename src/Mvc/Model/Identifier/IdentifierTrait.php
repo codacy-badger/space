@@ -25,20 +25,20 @@ namespace Galactium\Space\Mvc\Model\Identifier;
 
 use Galactium\Space\Identifier\Identifier;
 use Galactium\Space\Identifier\IdentifierInterface;
-use Phalcon\Mvc\Model;
-use Phalcon\Mvc\ModelInterface;
 
 
 trait IdentifierTrait
 {
     /**
-     * @return IdentifierInterface
+     * @return \Galactium\Space\Identifier\IdentifierInterface
      */
     public function identify(): IdentifierInterface
     {
-        /**@var Model|ModelInterface $this * */
-        $identityField = $this->getModelsMetaData()->getIdentityField($this);
-        $identityFieldValue = $this->readAttribute($this->getModelsMetaData()->getIdentityField($this));
+        /**
+         * @var \Phalcon\Mvc\ModelInterface $this
+         */
+        $identityField = $this->modelsMetadata->getIdentityField($this);
+        $identityFieldValue = $this->readAttribute($this->modelsMetadata->getIdentityField($this));
         return new Identifier(static::MODULE_NAME, 'models', $this->getSource(), [$identityField, $identityFieldValue]);
     }
 
