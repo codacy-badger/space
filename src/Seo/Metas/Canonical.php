@@ -20,37 +20,27 @@
  * @author Grigoriy Ivanov
  */
 
-namespace Galactium\Space\Identifier;
 
-interface IdentifierInterface
+namespace Galactium\Space\Seo\Metas;
+
+
+class Canonical extends Meta
 {
-    /**
-     * @return string
-     */
-    public function getIdentifiable(): string;
+    protected $tag = 'link';
+
+    protected $name = 'canonical';
+
+    protected $property = 'rel';
 
     /**
-     * @return string
+     * Canonical constructor.
+     * @param string $href
      */
-    public function getModule(): string;
+    public function __construct(string $href)
+    {
+        parent::__construct($href, $this->name, $this->property, $this->tag);
 
-    /**
-     * @return string
-     */
-    public function getNamespace(): string;
+    }
 
-    /**
-     * @return string
-     */
-    public function getClass(): string;
 
-    /**
-     * @return string
-     */
-    public function key(): string;
-
-    /**
-     * @return array
-     */
-    public function getParams(): array;
 }

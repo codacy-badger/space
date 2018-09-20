@@ -1,6 +1,6 @@
 {
   "name": "galactium/space",
-  "description": "Galactium Space Library",
+  "description": "Galactium Space",
   "keywords": [
     "galactium",
     "cms",
@@ -14,23 +14,30 @@
       "email": "support@galactium.io"
     }
   ],
-  "support": {
-    "email": "support@galactium.io",
-    "forum": "https://community.galactium.io/"
-  },
   "require": {
     "php": "^7.1",
-    "ext-phalcon": "^3.3"
+    "ext-json": "*",
+    "ext-phalcon": "^3.3",
+    "phalcon/incubator": "^3.3",
+    "spatie/schema-org": "^2.0"
   },
   "require-dev": {
-    "phalcon/ide-stubs": "*"
+    "phalcon/ide-stubs": "*",
+    "codeception/codeception": "^2.3"
   },
   "autoload": {
     "psr-4": {
       "Galactium\\Space\\": "src/"
     },
+    "autoload-dev": {
+      "psr-4": {
+        "Phalcon\\Test\\": "tests/unit/"
+      }
+    },
     "files": [
-      "src/Helpers/helpers.php"
+      "src/Helpers/collections.php",
+      "src/Helpers/arrays.php",
+      "src/Helpers/app.php"
     ]
   }
 }

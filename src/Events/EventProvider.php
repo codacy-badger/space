@@ -14,7 +14,6 @@
  * limitations under the License.
  *
  */
-
 /**
  * Galactium @ 2017
  * @author Grigoriy Ivanov

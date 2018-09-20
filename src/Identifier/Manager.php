@@ -40,7 +40,7 @@ class Manager extends Injectable
     }
 
     /**
-     * Gets a GUID (Galactium Unique Identifier) from model.
+     * Gets a GUID (Galactium Unique Identifier) from the model.
      * Format: module::namespace.class
      *
      * @param IdentifiableInterface $record
@@ -52,7 +52,7 @@ class Manager extends Injectable
     }
 
     /**
-     * Parse key and returns it as object
+     * Parse a key and returns it as object
      *
      * @param string $key
      * @return IdentifierInterface

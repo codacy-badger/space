@@ -32,16 +32,14 @@ trait PaginateTrait
      * @param BuilderInterface $builder
      * @param int $limit
      * @param int $page
-     * @param int $pageRange
      * @return \stdClass
      */
-    protected function paginate(BuilderInterface $builder, int $limit = 25, int $page = 1, int $pageRange = 5)
+    protected function paginate(BuilderInterface $builder, int $limit = 25, int $page = 1)
     {
         $paginator = new QueryBuilder([
             "builder" => $builder,
             "limit" => $limit,
             "page" => $page,
-            "page_range" => $pageRange
         ]);
 
         return $paginator->getPaginate();

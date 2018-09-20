@@ -20,37 +20,44 @@
  * @author Grigoriy Ivanov
  */
 
-namespace Galactium\Space\Identifier;
+namespace Galactium\Space\Di;
 
-interface IdentifierInterface
+
+use Phalcon\Di\InjectionAwareInterface;
+use Phalcon\Di\ServiceProviderInterface;
+
+class Registrator implements InjectionAwareInterface
 {
     /**
-     * @return string
+     * @var \Phalcon\DiInterface
      */
-    public function getIdentifiable(): string;
+    protected $di;
 
     /**
-     * @return string
+     * @param ServiceProviderInterface[] $providers
      */
-    public function getModule(): string;
+    public function registerProviders(array $providers)
+    {
+        foreach ($providers as $provider) {
+            $this->di->register(new $provider);
+        }
+    }
 
     /**
-     * @return string
+     * @return \Phalcon\DiInterface
      */
-    public function getNamespace(): string;
+    public function getDi(): \Phalcon\DiInterface
+    {
+        return $this->di;
+    }
 
     /**
-     * @return string
+     * @param \Phalcon\DiInterface $di
      */
-    public function getClass(): string;
+    public function setDi(\Phalcon\DiInterface $di)
+    {
+        $this->di = $di;
+    }
 
-    /**
-     * @return string
-     */
-    public function key(): string;
 
-    /**
-     * @return array
-     */
-    public function getParams(): array;
 }

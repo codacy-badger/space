@@ -6,7 +6,7 @@
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ *  
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,7 +28,7 @@ use Galactium\Space\Di\ServiceProvider;
 abstract class ModuleProvider extends ServiceProvider
 {
     /**
-     * @var array
+     * @var \Phalcon\Di\ServiceProviderInterface[]
      */
     protected $providers = [];
 
@@ -37,8 +37,6 @@ abstract class ModuleProvider extends ServiceProvider
      */
     public function register(\Phalcon\DiInterface $di)
     {
-        foreach ($this->providers as $provider) {
-            $di->register(new $provider);
-        }
+        $di->get('registrator')->registerProviders($this->providers);
     }
 }

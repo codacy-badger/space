@@ -26,7 +26,7 @@ namespace Galactium\Space\Settings;
 use Phalcon\Config;
 use Phalcon\Di\InjectionAwareInterface;
 use Phalcon\Mvc\Model\ResultsetInterface;
-use Phalcon\Mvc\ModelInterface;
+use function Galactium\Space\Helpers\container;
 
 class Manager implements InjectionAwareInterface, ManagerInterface
 {
@@ -64,13 +64,13 @@ class Manager implements InjectionAwareInterface, ManagerInterface
         if (!$setting) {
             return $default ?? false;
         }
-        return $setting->getValue();
+        return $setting->getValue() ?? $default;
     }
 
     /**
      * @param string $model
      * @param string $context
-     * @param string|null $key
+     * @param string $key
      * @return ResultsetInterface
      */
     protected function find(string $model, string $context, string $key = null): ResultsetInterface
@@ -78,7 +78,7 @@ class Manager implements InjectionAwareInterface, ManagerInterface
         /**
          * @var \Phalcon\Mvc\Model\ManagerInterface $modelsManager
          */
-        $modelsManager = $this->_dependencyInjector->getShared('modelsManager');
+        $modelsManager = container('modelsManager');
         $query = $modelsManager
             ->createBuilder()
             ->from(['Settings' => $model])
@@ -127,4 +127,24 @@ class Manager implements InjectionAwareInterface, ManagerInterface
         return new Config($data);
 
     }
+
+    /**
+     * @param \Phalcon\Mvc\ModelInterface $model
+     * @param $context
+     * @param $key
+     * @param $value
+     * @return bool
+     */
+    public function save($model, $context, $key, $value)
+    {
+        $model::query()
+            ->where('context = :context:', ['context' => $context])
+            ->andWhere('key = :key:', ['key' => $key])
+            ->execute()
+            ->getFirst();
+
+        return $model->setValue($value)->save();
+    }
+
+
 }

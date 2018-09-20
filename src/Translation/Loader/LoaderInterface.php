@@ -20,37 +20,16 @@
  * @author Grigoriy Ivanov
  */
 
-namespace Galactium\Space\Identifier;
+namespace Galactium\Space\Translation\Loader;
 
-interface IdentifierInterface
+
+interface LoaderInterface
 {
     /**
-     * @return string
-     */
-    public function getIdentifiable(): string;
-
-    /**
-     * @return string
-     */
-    public function getModule(): string;
-
-    /**
-     * @return string
-     */
-    public function getNamespace(): string;
-
-    /**
-     * @return string
-     */
-    public function getClass(): string;
-
-    /**
-     * @return string
-     */
-    public function key(): string;
-
-    /**
+     * @param $locale
+     * @param $module
+     * @param $group
      * @return array
      */
-    public function getParams(): array;
+    public function load($locale, $module, $group): array;
 }

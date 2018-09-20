@@ -16,36 +16,33 @@
  */
 
 /**
- * Galactium @ 2017
+ * Galactium @ 2018
  * @author Grigoriy Ivanov
  */
 
-namespace Galactium\Space\Http;
 
-class Json implements \JsonSerializable, \ArrayAccess, \Countable, \Iterator
+namespace Galactium\Space\Support;
+
+
+class BaseCollection implements \JsonSerializable, \ArrayAccess, \Countable, \Iterator
 {
-    /**
-     * @var $bool
-     */
-    protected $success = true;
-    /**
-     * @var array|\JsonSerializable
-     */
-    protected $data = [];
     /**
      * @var array
      */
-    protected $links = [];
+    protected $data = [];
 
     /**
      * Json constructor.
-     * @param array|\JsonSerializable $data
+     * @param array $data
      */
     public function __construct($data = [])
     {
         $this->data = $data;
     }
 
+    /**
+     * @return array
+     */
     public function jsonSerialize()
     {
         return $this->toArray();
@@ -56,185 +53,94 @@ class Json implements \JsonSerializable, \ArrayAccess, \Countable, \Iterator
      */
     public function toArray(): array
     {
-        $response = [
-            'success' => $this->success,
-            'data' => $this->data,
-            'links' => $this->links,
-        ];
-
-        return $response;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isSuccess(): bool
-    {
-        return $this->success;
-    }
-
-    /**
-     * @param bool $success
-     * @return Json
-     */
-    public function setSuccess(bool $success): Json
-    {
-        $this->success = $success;
-        return $this;
-    }
-
-    /**
-     * @return array|\JsonSerializable
-     */
-    public function getData()
-    {
         return $this->data;
-    }
-
-    /**
-     * @param array|\JsonSerializable $data
-     * @return Json
-     */
-    public function setData($data)
-    {
-        $this->data = $data;
-        return $this;
     }
 
     /**
      * @return array
      */
-    public function getLinks(): array
+    public function getData(): array
     {
-        return $this->links;
+        return $this->data;
     }
 
     /**
-     * @param array $links
-     * @return Json
+     * @param array $data
+     * @return BaseCollection
      */
-    public function setLinks(array $links): Json
+    public function setData(array $data): BaseCollection
     {
-        $this->links = $links;
+        $this->data = $data;
         return $this;
     }
 
-    /**
-     * @return int
-     */
     public final function count()
     {
         return count($this->data);
     }
 
-    /**
-     *
-     */
     public final function next()
     {
         next($this->data);
     }
 
-    /**
-     * @return int|mixed|null|string
-     */
     public final function key()
     {
         return key($this->data);
     }
 
-    /**
-     *
-     */
     public final function rewind()
     {
         reset($this->data);
     }
 
-    /**
-     * @return bool
-     */
     public function valid()
     {
         return key($this->data) !== null;
     }
 
-    /**
-     * @return mixed
-     */
     public function current()
     {
         return current($this->data);
     }
 
-    /**
-     * @param $key
-     * @return mixed
-     */
     public final function __get($key)
     {
         return $this->offsetGet($key);
     }
 
-    /**
-     * @param $key
-     * @param $value
-     */
     public final function __set($key, $value)
     {
         $this->offsetSet($key, $value);
     }
 
-    /**
-     * @param mixed $offset
-     * @param mixed $value
-     */
-    public final function offsetSet($offset, $value)
-    {
-        $this->data[$offset] = $value;
-    }
-
-    /**
-     * @param mixed $offset
-     * @return mixed
-     */
     public final function offsetGet($offset)
     {
         return $this->data[$offset];
     }
 
-    /**
-     * @param $key
-     * @return bool
-     */
+    public final function offsetSet($offset, $value)
+    {
+        $this->data[$offset] = $value;
+    }
+
     public final function __isset($key)
     {
         return $this->offsetExists($key);
     }
 
-    /**
-     * @param mixed $offset
-     * @return bool
-     */
     public final function offsetExists($offset)
     {
         return isset($this->data[$offset]);
     }
 
-    /**
-     * @param $key
-     */
     public final function __unset($key)
     {
         $this->offsetUnset($key);
     }
 
-    /**
-     * @param mixed $offset
-     */
     public final function offsetUnset($offset)
     {
         unset($this->data[$offset]);
     }
-
 }
